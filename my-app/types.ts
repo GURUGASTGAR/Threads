@@ -1,7 +1,15 @@
 export interface AuthTypes {
-  email?:string;
+
   name?: string;
   password?: string;
-  password_confirm?:string;
   username?:string
+}
+
+
+export interface AuthErrorTypes {
+
+  name?: string;
+  username?: string
+  password?: string;
+  
 }

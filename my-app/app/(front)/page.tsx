@@ -1,12 +1,14 @@
-import ThemeTogglebtn from "@/components/common/themeTogglebtn";
-import { Button } from "@/components/ui/button";
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/options";
+import BaseComponent from "@/components/base/BaseComponent";
 
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
   return (
    <div>
-    <Button className="bg-blue-300" >Click me</Button>
-    <ThemeTogglebtn/>
+    <BaseComponent/>
    </div>
   );
 }
