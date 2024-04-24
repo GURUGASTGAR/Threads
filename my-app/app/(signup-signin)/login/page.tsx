@@ -76,7 +76,7 @@ export default function page() {
               <Label htmlFor="email">Email</Label>
               <Input type="email" placeholder="Enter your email"
                     onChange={(e)=>setAuthState({...authState, username:e.target.value})}/>
-                    <span className="text-red-400 font-semibold">{errors}</span>
+                    <span className="text-red-400 font-semibold">{errors?"Invalid Credentials":""}</span>
             </div>
             <div className="mt-5">
               <Label htmlFor="password">Password</Label>

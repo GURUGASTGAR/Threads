@@ -1,9 +1,8 @@
 import prisma from "@/app/db/dbconf";
 import bcrypt from 'bcrypt'
-import zod from 'zod'
 import { NextRequest, NextResponse } from "next/server";
 import { loginSchema } from "@/zodvalidation/registerSchema";
-import { error } from "console";
+
 
 
 
