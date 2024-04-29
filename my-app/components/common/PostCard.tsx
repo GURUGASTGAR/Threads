@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Heart, MessageCircle, SendHorizonal } from 'lucide-react'
 import { PostType } from '@/types'
 import Env from '@/config/env'
+import ImageViewer from './ImageViewer'
 
 export default function PostCard({post}:{post:PostType}) {
   return (
@@ -12,10 +13,7 @@ export default function PostCard({post}:{post:PostType}) {
         <div className='ml-12 mt-[-12px]'>
          {post.content}
         </div>
-        {post?.image && (<Image className='w-full rounded-md mt-2 h-[360px] cursor-pointer object-cover' 
-        src={`${Env.APP_URL}/uploads/${post.image}`}
-        width={100} height={100} alt='post logo'/>
-        )}
+        {post?.image && <ImageViewer image={post.image} />}
         <div className='mt-3 flex space-x-4'> 
              <Heart width={20} height={20} className='cursor-pointer'/>
              <MessageCircle width={20} height={20} className='cursor-pointer'/>

@@ -6,3 +6,5 @@ export const postSchema = zod.object({
 })
 
 
+export const commentSchema = zod.string().trim().min(10)
+

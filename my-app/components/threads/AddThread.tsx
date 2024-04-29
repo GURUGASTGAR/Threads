@@ -30,7 +30,6 @@ export default function AddThread() {
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
        const selectedFile = event.target.files?.[0]
        if(selectedFile){
-        console.log("selectsd file is:", selectedFile)
         setImage(selectedFile);
         const imageUrl = URL.createObjectURL(selectedFile);
         SetPreviewUrl(imageUrl);
@@ -53,7 +52,7 @@ export default function AddThread() {
           const response = res.data;
           if(response.status == 400){
             setErrors(response.error)
-            console.log(errors)
+          
           }else if(response.status==200){
             setErrors({});
             setContent("");

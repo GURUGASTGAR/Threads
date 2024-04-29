@@ -15,7 +15,7 @@ interface CustomBlob extends Blob {
 export async function  GET(){
   const session: CustomSession | null = await getServerSession(authOptions);
   if(!session){
-    return NextResponse.json({status:200, message: "Un-Authorized"})
+    return NextResponse.json({status:401, message: "Un-Authorized"})
   }
   const post = await prisma.post.findMany({
     include:{
