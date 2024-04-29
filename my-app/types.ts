@@ -13,3 +13,19 @@ export interface AuthErrorTypes {
   password?: string;
   
 }
+
+
+export interface PostType {
+  id:number,
+  user_id:number,
+  content:string,
+  image?:string,
+  created_at:string,
+  user:PostUser,
+}
+
+
+export interface PostUser {
+  id:number,
+  name:string
+}

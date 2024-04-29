@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import BaseComponent from "@/components/base/BaseComponent";
+
 
 
 
@@ -16,7 +18,9 @@ export default function HomeLayout({children}:{children:React.ReactNode}){
         attribute="class"
         defaultTheme="system"
         enableSystem>
-        {children}
+          <BaseComponent>
+              {children}
+          </BaseComponent>
         <Toaster/>
       </ThemeProvider>  
      )

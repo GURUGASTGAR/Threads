@@ -12,6 +12,27 @@ interface CustomBlob extends Blob {
   name:string
 }
 
+export async function  GET(){
+  const session: CustomSession | null = await getServerSession(authOptions);
+  if(!session){
+    return NextResponse.json({status:200, message: "Un-Authorized"})
+  }
+  const post = await prisma.post.findMany({
+    include:{
+      user:{
+        select:{
+          id:true,
+          name:true,
+        }
+      }
+    },
+    orderBy:{
+      id:"desc"
+    }
+  })
+  return NextResponse.json({status: 200 ,data:post})
+}
+
 export async function POST(req:NextRequest) {
   const session: CustomSession | null = await getServerSession(authOptions);
   
@@ -47,7 +68,7 @@ export async function POST(req:NextRequest) {
               try {
                 const buffer = Buffer.from(await image!.arrayBuffer());
                 const uploadDir = join(process.cwd(), 'public', "/uploads")
-                const uniqueName = Date.now() + "_" + getRandomNumber(1,90);
+                const uniqueName = Date.now() + "_" + getRandomNumber(1,9999);
                 const imgExtension = image!.name.split(".");
                 const fileName = uniqueName +"."+ imgExtension[1]
                 await writeFile(`${uploadDir}/${fileName}`, buffer)
