@@ -49,7 +49,7 @@ export async function POST(req:NextRequest) {
   const result = postSchema.safeParse(data)
         try {
             if(!result.success){
-                throw "must be atleast 10 char long"
+                return NextResponse.json({status:400,zodcomment:"must be atleast 10 char long"})
         }
         const image = formData.get('image') as CustomBlob | null
             if(image){
@@ -93,6 +93,7 @@ export async function POST(req:NextRequest) {
 
 
         } catch (error) {
-          NextResponse.json({status:400,error})            
+          console.log(error)
+         return  NextResponse.json({status:401,error})            
         }
 }

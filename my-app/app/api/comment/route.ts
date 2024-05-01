@@ -8,14 +8,14 @@ import { CustomSession, authOptions } from "../auth/[...nextauth]/options";
 
 export async function POST(req:NextRequest) {
     const  data = await req.json();
-    const {success} = commentSchema.safeParse(data.comment);
+    const {success} = commentSchema.safeParse(data.content);
     const session:CustomSession | null = await getServerSession(authOptions);
     try {
         if(!session){
             return NextResponse.json({status:401,message:"Un-Authenticated"})
         }
         if(!success){
-           throw new Error("Atleast 10 char")        
+           return NextResponse.json({status:400,zoderror:"must be atleast 5 char long"})        
         }
         //increase the comment count
         await prisma.post.update({
@@ -33,10 +33,10 @@ export async function POST(req:NextRequest) {
             data:{
                 user_id: Number(session?.user?.id),
                 post_id:Number(data.post_id),
-                content: data.comment
+                content: data.content
             }
         })
-        NextResponse.json({status:200,message:"comment added succesfully"})
+       return  NextResponse.json({status:200,message:"comment added succesfully"})
     } catch (error) {
      console.log(error)   
     }

@@ -1,26 +1,27 @@
 import React from 'react'
 import UserPostBar from './UserPostBar'
-import Image from 'next/image'
 import { Heart, MessageCircle, SendHorizonal } from 'lucide-react'
 import { PostType } from '@/types'
-import Env from '@/config/env'
-import ImageViewer from './ImageViewer'
 
-export default function PostCard({post}:{post:PostType}) {
+import ImageViewer from './ImageViewer'
+import AddComment from '../threads/AddComment'
+import Link from 'next/link'
+
+export default function PostCard({post, noRedirect }:{post:PostType,noRedirect?:boolean}) {
   return (
     <div className='mb-8'>
         <UserPostBar post={post}/>
-        <div className='ml-12 mt-[-12px]'>
-         {post.content}
+        <div className='ml-12 mt-[-2px]'>
+         <Link href={noRedirect?"#":`/post/${post.id}`} className='cursor-pointer'>{post.content}</Link>
         </div>
         {post?.image && <ImageViewer image={post.image} />}
         <div className='mt-3 flex space-x-4'> 
              <Heart width={20} height={20} className='cursor-pointer'/>
-             <MessageCircle width={20} height={20} className='cursor-pointer'/>
+             <AddComment post={post}/>
              <SendHorizonal width={20} height={20} className='cursor-pointer'/>
         </div>
         <div className='mt-2 '>
-            <span>4 replies</span>
+            <span>{post.comment_count} comments</span>
             <span className='ml-3'>1 likes</span>
         </div>
         <div className='h-[2px] bg-gray-900 rounded-xl w-full m-2'></div>

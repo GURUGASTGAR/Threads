@@ -9,6 +9,8 @@ import ImagePreviewCard from '../common/ImagePreviewCard'
 import axios from 'axios'
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { PostError } from '@/types'
 
 
 
@@ -18,9 +20,10 @@ export default function AddThread() {
     const [previewUrl, SetPreviewUrl] = useState<string | undefined>();
     const [content,setContent] = useState<string>("");
     const [loading,setloading]= useState<boolean>(false)
-    const [errors,setErrors] = useState({})
+    const [errors,setErrors] = useState<PostError>({})
     const { toast } = useToast()
     const router = useRouter()
+    const {data} = useSession()
 
     const onHandleClick = ()=>{
         imageRef.current?.click();
@@ -51,7 +54,7 @@ export default function AddThread() {
           setloading(false);
           const response = res.data;
           if(response.status == 400){
-            setErrors(response.error)
+            setErrors({postcomment:response.zodcomment})
           
           }else if(response.status==200){
             setErrors({});
@@ -78,16 +81,16 @@ export default function AddThread() {
     <div className='mt-5'>
         {previewUrl?<ImagePreviewCard image={previewUrl} callback={removePreviewImage}/>:<></>}
         <div className='flex justify-start items-start space-x-3'>
-             <UserAvatar name='Guru' image=''/>
+             <UserAvatar name={data?.user?.name ?? "U"} image=''/>
              <textarea className='w-full h-24 text-md p-2 bg-muted outline-none rounded-lg ml-2 resize-none placeholder:font-normal'
                onChange={(e)=>{setContent(e.target.value)}} value={content}>
              </textarea>
         </div>
-        <span>{}</span>
+        <span className='text-red-400 font-bold ml-14'>{errors.postcomment}</span>
         <div className='mt-3 ml-14 flex justify-between items-center'>
             <input type='file' ref={imageRef} className='hidden'  onChange={handleImageChange}/>
             <Image height={20} width={20} className='cursor-pointer' onClick={onHandleClick}/>
-            <Button disabled={content?.length<10 || loading?true:false } onClick={submit} >Post</Button>
+            <Button disabled={content?.length<10|| loading?true:false } onClick={submit} >Post</Button>
         </div>
     </div>
   )
