@@ -43,3 +43,20 @@ export interface CommentType {
   created_at:string,
   user: PostUser,
 }
+
+export interface ShowUser {
+  id:number,
+  name:string,
+  username:string,
+  post: Array<PostType> | [],
+  comment: Array<CommentType> | []
+}
+
+export interface NotificationType {
+  id:number,
+  user_id: number,
+  touser_id: number,
+  content: string,
+  created_at:string,
+  user: PostUser,
+}

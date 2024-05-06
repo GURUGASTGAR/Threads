@@ -15,7 +15,7 @@ export default function UserListCard({user}:{user:PostUser}) {
             <div className='font-bold text-md ml-2'>{user.name}</div>
             <div className='text-xs font-light ml-2'>@{username[0]}</div>
           </div>
-          <Link href='#'>
+          <Link href={`/user/${user.id}`}>
            <Button size='sm'>view</Button>
           </Link>
         </div>

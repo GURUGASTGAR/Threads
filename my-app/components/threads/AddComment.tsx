@@ -36,7 +36,8 @@ export default function AddComment({post}:{post:PostType}) {
         setLoading(true);
         axios.post("/api/comment",{
             content:content,
-            post_id:post.id.toString()
+            post_id:post.id.toString(),
+            touser_id: post.user_id,
         })
         .then((res)=>{
             const response = res.data

@@ -67,3 +67,55 @@ export async function getUniquePost(id:number){
     console.log("server methods file ,get user: ",error)    
   }
 }
+
+export async function getUserComments() {
+  try {
+    const userComments = await fetch(`${Env.APP_URL}/api/user/comment`,{
+      cache:"no-cache",
+      headers:headers(),
+    });
+   if(!userComments.ok){
+    throw new Error("failed to fetch data")
+   }
+   const response = await userComments.json();
+    return response.data;
+  } catch (error) {
+    console.log("get user post: ",error)
+  }
+}
+/// get user profile
+export async function getUserProfile(id:number){
+
+  try {
+    const users = await fetch(`${Env.APP_URL}/api/user/${id}`,{
+      cache:'no-cache',
+      headers:headers(),
+    })
+    console.log(users)
+    if(!users){
+      throw new Error("failed to fetch data")
+    }
+    const response = await users.json();
+    //console.log("responseis",response)
+    return response?.data;
+  } catch (error) {
+    console.log("server methods file ,get user: ",error)
+  }
+}
+
+export async function getUserNotification(){
+  try {
+    const userNotifications = await fetch(`${Env.APP_URL}/api/notification`,{
+      cache:"no-cache",
+      headers:headers()
+    })
+
+    if(!userNotifications){
+      throw new Error("failed to fetch")
+    }
+    const response = await userNotifications.json();
+    return response.data
+  } catch (error) {
+    console.log("notification.error",error)
+  }
+}

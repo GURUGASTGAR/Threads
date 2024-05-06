@@ -28,6 +28,14 @@ export async function POST(req:NextRequest) {
                 }
             }
         })
+        //add notification 
+        await prisma.notification.create({
+            data:{
+                user_id: Number(session.user?.id),
+                touser_id: Number(data.touser_id),
+                content: data.content,
+            }
+        })
         //add comment to db
         await prisma.comment.create({
             data:{

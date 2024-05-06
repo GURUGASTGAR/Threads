@@ -18,7 +18,7 @@ export default async function Home() {
                </div>
                <AddThread/>
                <div className='mt-5'>
-                {posts.map((post)=>(<PostCard post={post} key={post.id}/>))}
+                {posts.map((post)=>(<PostCard post={post} key={post.id} isAuthCard={false}/>))}
                </div>
    </div>
   );

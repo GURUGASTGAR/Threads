@@ -7,10 +7,10 @@ import ImageViewer from './ImageViewer'
 import AddComment from '../threads/AddComment'
 import Link from 'next/link'
 
-export default function PostCard({post, noRedirect }:{post:PostType,noRedirect?:boolean}) {
+export default function PostCard({post, noRedirect , isAuthCard }:{post:PostType,noRedirect?:boolean, isAuthCard?:boolean}) {
   return (
     <div className='mb-8'>
-        <UserPostBar post={post}/>
+        <UserPostBar isAuthCard={isAuthCard} post={post}/>
         <div className='ml-12 mt-[-2px]'>
          <Link href={noRedirect?"#":`/post/${post.id}`} className='cursor-pointer'>{post.content}</Link>
         </div>
